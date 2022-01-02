@@ -1,7 +1,7 @@
 import React from "react";
-import ProductListing from "./Components/ProductListing";
+import { ProductListing, ProductModal } from "./Components";
 import { QueryClient, QueryClientProvider } from "react-query";
-import ProductModal from "./Components/ProductModal";
+import "./Styles/App.scss";
 
 const queryClient = new QueryClient();
 
@@ -11,7 +11,6 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ProductListing />
       </QueryClientProvider>
-      <ProductModal />
     </div>
   );
 }

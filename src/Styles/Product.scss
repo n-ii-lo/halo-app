@@ -1,0 +1,174 @@
+//MIXINS
+@import "mixins";
+//<COLOR>==========================================================================================================
+$BG_card--color: #ffffff;
+
+//<FONT>==========================================================================================================
+//MAX size
+$FontMAX_card-title: 40;
+$FontMAX_card-category: 16;
+$FontMAX_card-price: 60;
+//MIN size
+$FontMIN_card-title: 20;
+$FontMIN_card-category: 12;
+$FontMIN_card-price: 30;
+//Line height
+//MAX size
+$LineHeightMAX_card-title: 48;
+$LineHeightMAX_card-category: 24;
+$LineHeightMAX_card-price: 72;
+//MIN size
+$LineHeightMIN_card-title: 24;
+$LineHeightMIN_card-category: 12;
+$LineHeightMIN_card-price: 36;
+
+//Card
+//<CARD PADDING>==========================================================================================================
+//MAX
+$Card_PaddingMAX: 32;
+//MIN
+$Card_PaddingMIN: 16;
+//<CARD MARGIN>==========================================================================================================
+//MAX size
+$MarginMAX_card-title: 40;
+$MarginMAX_card-category: 8;
+//MIN size
+$MarginMIN_card-title: 10;
+$MarginMIN_card-category: 2;
+//<CARD HEIGHT>==========================================================================================================
+//MAX
+$Card_HeightMAX: 256;
+//MIN
+$Card_HeightMIN: 123;
+
+//Selectors
+.product-card {
+  //Product card
+  border-radius: 24px;
+  transition: text-shadow 0.3s, box-shadow 0.3s;
+  //Paddiing
+  @include adaptive-value("padding", $Card_PaddingMAX, $Card_PaddingMIN, 1);
+  //Color
+  background-color: $BG_card--color;
+  //Hover
+  &:hover {
+    //Card
+    box-shadow: 24px 24px 40px rgba(75, 207, 160, 0.08);
+    div.product-card__price-info {
+      //Price
+      span {
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+  //Positioning
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  //Price, buy button
+  &__price-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  //Title
+  &__title {
+    @include adaptive-value(
+      "margin-bottom",
+      $MarginMAX_card-title,
+      $MarginMIN_card-title,
+      1
+    );
+  }
+  //Category
+  &__category {
+    @include adaptive-value(
+      "margin-bottom",
+      $MarginMAX_card-category,
+      $MarginMIN_card-category,
+      1
+    );
+  }
+  //Content (Text)
+  $AdaptiveStopValue: 1170px; //Grid width for responsive value. After this width, responsive not working
+  &__title {
+    @include adaptive-value(
+      "line-height",
+      $LineHeightMAX_card-title,
+      $LineHeightMIN_card-title,
+      1
+    );
+    @include adaptive-value(
+      "font-size",
+      $FontMAX_card-title,
+      $FontMIN_card-title,
+      1
+    );
+    @media (min-width: $AdaptiveStopValue) {
+      font-size: $FontMAX_card-title + px;
+    }
+  }
+  &__category {
+    @include adaptive-value(
+      "line-height",
+      $LineHeightMAX_card-category,
+      $LineHeightMIN_card-category,
+      1
+    );
+    @include adaptive-value(
+      "font-size",
+      $FontMAX_card-category,
+      $FontMIN_card-category,
+      1
+    );
+    @media (min-width: $AdaptiveStopValue) {
+      font-size: $FontMAX_card-category + px;
+    }
+  }
+  &__price {
+    @include adaptive-value(
+      "line-height",
+      $LineHeightMAX_card-price,
+      $LineHeightMIN_card-price,
+      1
+    );
+    @include adaptive-value(
+      "font-size",
+      $FontMAX_card-price,
+      $FontMIN_card-price,
+      1
+    );
+    @media (min-width: $AdaptiveStopValue) {
+      font-size: $FontMAX_card-price + px;
+    }
+  }
+}
+.product-listing {
+  //Product grid
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(352px, 1fr));
+  gap: 4rem;
+  height: 580px;
+  //Scroll
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  //Cards
+  div.product-card {
+    @include adaptive-value("height", $Card_HeightMAX, $Card_HeightMIN, 1);
+  }
+  //Adaptive
+  @media (max-width: $md1+px) {
+    overflow-y: auto;
+    height: auto;
+  }
+  @media (max-width: $md2+px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media (max-width: $md4+px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+}

@@ -1,15 +1,13 @@
 import React from 'react';
-import Product from './Product';
 
-const ProductModal = () => {
+export const ProductModal = ({active, setActive, children}) => {
 
 	return (
-		<div>
-			<h2>Henlo</h2>
-			<Product/>
-
+		<div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)} >
+			<div className="modal__content" onClick={e => e.stopPropagation()}>
+				
+			</div>
 		</div>
 	);
 }
 
-export default ProductModal;

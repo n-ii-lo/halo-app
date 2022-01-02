@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState } from "react";
+import { ProductModal } from ".";
 
-const Product = ({ product }) => {
+export const Product = ({ product }) => {
 	//Product title
 	const str = product.name;
 	const arr = str.split(' ')
@@ -14,17 +15,21 @@ const Product = ({ product }) => {
 
 	//Product currency
 	let currency = '$'
-	let productPrice = `${currency} ${product.price}`;
+	const productPrice = `${currency} ${product.price}`;
 
-	//Product setting
+	//Buy button
+	const [modalActive, setModalActive] = useState(true);
+
+	//Product grid
 	return (
 		<div className='product-card'>
-			<h4>{productCategory}</h4>
-			<h2>{productTitle}</h2>
-			<p>{productPrice}</p>
-			<button>Buy</button>
+			<h3 className="product-card__category">{productCategory}</h3>
+			<h2 className="product-card__title">{productTitle}</h2>
+			<div className="product-card__price-info">
+				<span className="product-card__price">{productPrice}</span>
+				<button className="buy-btn default-btn" onClick={() => setModalActive(true)} >Buy</button>
+			</div>
+			<ProductModal active={modalActive} setActive={setModalActive} />
 		</div>
 	);
 }
-
-export default Product;
